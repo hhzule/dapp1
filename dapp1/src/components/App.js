@@ -57,7 +57,7 @@ const App = () => {
         apiArr.push(totalapi);
         console.log("SETTTED ID DSJHb", apis);
       }
-      
+
       setApis(apiArr.sort((a, b) => b.fund - a.fund));
 
       setLoading(false);
@@ -78,7 +78,7 @@ const App = () => {
       console.log(Buffer(reader.result));
     };
   };
-  const uploadImage = (description) => {
+  const uploadImage = (description, githublink) => {
     try {
       console.log("submitting wait");
 
@@ -90,7 +90,7 @@ const App = () => {
         }
         setLoading(true);
         decentragram.methods
-          .createApi(result[0].hash, description)
+          .createApi(result[0].hash, description, githublink)
           .send({ from: account })
           .on("transactionHash", (hash) => {
             setLoading(false);
@@ -115,6 +115,10 @@ const App = () => {
     await loadBlockchainData();
   }, []);
 
+   window.ethereum.on("accountsChanged", function(accounts) {
+      setAccount(account);
+      loadBlockchainData();
+    });
   return (
     <div>
       <Navbar account={account} />

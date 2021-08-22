@@ -19,6 +19,7 @@ contract Decentragram {
     uint id;
     string hashes;
     string description;
+    string githublink;
     uint fund;
     address payable developer;
 
@@ -28,6 +29,7 @@ contract Decentragram {
     uint id,
     string hashes,
     string description,
+    string githublink,
     uint fund,
     address payable developer
 
@@ -45,10 +47,12 @@ contract Decentragram {
 
   //Create Images
 
-  function createApi(string memory _apiHash, string memory _description) public {
+  function createApi(string memory _apiHash, string memory _description, string memory _githublink) public {
     require(bytes(_apiHash).length > 0);
     
     require(bytes(_description).length > 0);
+
+    require(bytes(_githublink).length > 0);
 
     require(msg.sender != address(0x0));
 
@@ -56,9 +60,9 @@ contract Decentragram {
     // increment
     apiCount ++;
     // add image to contract
-    apis[apiCount] = Api(apiCount, _apiHash, _description, 0, msg.sender);
+    apis[apiCount] = Api(apiCount, _apiHash, _description, _githublink, 0, msg.sender);
 
-    emit ApiCreated(apiCount, _apiHash, _description, 0, msg.sender);
+    emit ApiCreated(apiCount, _apiHash, _description, _githublink, 0, msg.sender);
   }
 
 
